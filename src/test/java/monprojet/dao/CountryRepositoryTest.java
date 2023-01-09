@@ -1,5 +1,6 @@
 package monprojet.dao;
 
+import monprojet.dto.CountryPopulation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -42,5 +43,20 @@ public class CountryRepositoryTest {
         long nombre = countryDAO.count();
         assertEquals(combienDePaysDansLeJeuDeTest, nombre, "On doit trouver 4 pays" );
     }
+
+    @Test
+    void onSaitCalculerLaPopulationDunPays() {
+        log.info("On calcule la population d'un pays");
+        assertEquals(countryDAO.countryPopulation(2),38);
+    }
+
+    @Test
+    void onSaitObtenirLaListePaysPopulation() {
+        log.info("On obtient la liste pays-population");
+        List<CountryPopulation> poppays = countryDAO.getListCountryPopulation();
+        assertEquals("United States of America",poppays.get(1).getNom());
+        assertEquals(38,poppays.get(1).getPop());
+    }
+
 
 }
